@@ -16,9 +16,6 @@ C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.exe
 C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.pdb
 C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.exe
 C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.pdb
-C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\FastMember.dll
-C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\FastMember.pdb
-C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\FastMember.xml
 C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.Properties.Resources.resources
 C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\GenerateResource.read.1.tlog

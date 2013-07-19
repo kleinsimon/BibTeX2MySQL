@@ -128,13 +128,7 @@ namespace BibTex2SQL
                     if (0 == open)
                     {
                         entry = false;
-                        valid = parseEntry(buffer);
-                        //entrydata = this->_parseEntry(buffer);
-                        //if(!entrydata) {
-                        //    valid = false;
-                        //} else {
-                        //    this->data[] = entrydata;
-                        //}
+                        valid = parseEntry(buffer + curChar);
                         buffer = "";
                     }
                 }
@@ -146,109 +140,114 @@ namespace BibTex2SQL
             }
             if (!valid) MessageBox.Show("Fehler Aufgetreten");
 
-            //MessageBox.Show(EntryList.Count.ToString() + " Einträge eingelesen");
-            //fillTable();
-
             dataGridView1.DataSource = EntryTable;
             RF.Close();
         }
 
         bool parseEntry(string entry)
         {
-            //bibEntry curEntry = new bibEntry();
-            //Dictionary<string, string> curEntry = new Dictionary<string, string>();
-            DataRow curEntry = EntryTable.NewRow();
+            if (!entry.StartsWith("@"))
+                return false;
 
-            StringReader s = new StringReader(entry);
-            string curline = null;
+            DataRow curEntry = EntryTable.NewRow();
+            char lastChar = '.';
+            string bibType = "";
+            string bibKey = "";
+            string lastTag = "";
             bool ownPub = false;
             string ownPubID = "";
+            int i = 0;
+            int open = 0;
+            int n = 0;
 
-            while ((curline = s.ReadLine()) != null)
+            foreach (char c in entry)
             {
-                curline = curline.Trim();
-                if (curline.StartsWith("@"))
+                if (i == 0)
                 {
-                    MakeCol("BibType", EntryTable);
-                    MakeCol("BibKey", EntryTable);
+                    i++;
+                    continue;
+                }
+                if (c == '{' && lastChar != '\\')
+                {
+                    open++;
+                }
+                else if (c == '}' && lastChar != '\\')
+                {
+                    open--;
+                }
 
-                    curEntry["BibType"] = curline.Substring(1, curline.IndexOf('{') - 1);
-                    if (!entries.Contains(curEntry["BibType"]))
-                        return false;
-
-                    curEntry["BibKey"] = curline.Substring(curline.IndexOf('{') + 1);
-                    if (((string)curEntry["BibKey"]).EndsWith(","))
-                    {
-                        curEntry["BibKey"] = ((string)curEntry["BibKey"]).Substring(0, ((string)curEntry["BibKey"]).Length - 1);
-                    }
+                if (open == 0 && n==0)
+                {
+                    //before body
+                    bibType += c;
                 }
                 else
                 {
-                    string tag, content;
-
-                    int open = 0;
-                    int close = 0;
-                    open = countCharNum(curline, '{');
-                    close = countCharNum(curline, '}');
-
-                    while (open > close)
+                    //in Body or after body
+                    if ((open == 1 && c == ',') || open == 0)
                     {
-                        string nextline = s.ReadLine();
-                        if (nextline == null)
+                        if (n != 0)
                         {
-                            return false;
-                        }
-                        curline += Environment.NewLine + nextline;
-                        open = countCharNum(curline, '{');
-                        close = countCharNum(curline, '}');
-                    }
+                            //Tag ended
+                            string tagName = lastTag.Substring(0, lastTag.IndexOf('=')).Trim();
+                            string tagBody = lastTag.Substring(lastTag.IndexOf('=') + 1);
+                            tagBody = tagBody.Replace("{", "");
+                            tagBody = tagBody.Replace("}", "");
+                            tagBody = tagBody.Trim();
 
-                    try
-                    {
-                        int delim = curline.IndexOf('=');
-
-                        tag = curline.Substring(0, delim).Trim();
-                        content = curline.Substring(delim + 1).Trim();
-                        if (content.StartsWith("{") && content.EndsWith("},"))
-                        {
-                            content = content.Substring(1, content.Length - 3);
-                        }
-                        if (content.StartsWith("{") && content.EndsWith("}"))
-                        {
-                            content = content.Substring(1, content.Length - 2);
-                        }
-
-
-                        if (tags.Contains(tag))
-                        {
-                            MakeCol(tag, EntryTable);
-                            curEntry[tag] = content;
-                        }
-
-                        if (tag == "location")
-                        {
-                            if (content.Contains(@"Lehrstuhl-Veröffentlichungen"))
+                            if (tags.Contains(tagName))
                             {
-                                ownPub = true;
-                                try
-                                {
-                                    int first = content.IndexOf(@"Lehrstuhl-Veröffentlichungen") + 30;
-                                    ownPubID = content.Substring(first, content.IndexOf(')') - first);
-                                }
-                                catch { }
-                                curEntry["signature"] = ownPubID;
+                                MakeCol(tagName, EntryTable);
+                                curEntry[tagName] = tagBody;
                             }
+                            if (tagName == "location")
+                            {
+                                if (tagBody.Contains(@"Lehrstuhl-Veröffentlichungen"))
+                                {
+                                    ownPub = true;
+                                    try
+                                    {
+                                        int first = tagBody.IndexOf(@"Lehrstuhl-Veröffentlichungen") + 30;
+                                        ownPubID = tagBody.Substring(first, tagBody.IndexOf(')') - first);
+                                    }
+                                    catch { }
+                                    curEntry["signature"] = ownPubID;
+                                }
+                            }
+                            lastTag="";
                         }
+
+                        i++;
+                        n++;
+                        continue;
                     }
-                    catch
+                    else if (n == 0)
                     {
-                        return false;
+                        //must be in bibkey
+                        if (c != '{' && c != '}')
+                            bibKey += c;
+                    }
+                    else
+                    {
+                        //must be in Tag
+                        lastTag += c;
                     }
                 }
+
+                lastChar = c;
+                i++;
             }
+            if (open > 0)
+                return false;
 
             if (ownPub)
             {
+                MakeCol("BibType", EntryTable);
+                MakeCol("BibKey", EntryTable);
+
+                curEntry["BibType"] = bibType;
+                curEntry["BibKey"] = bibKey;
+
                 curEntry["author"] = ((string)curEntry["author"]).Replace(@"{", "");
                 curEntry["author"] = ((string)curEntry["author"]).Replace(@"}", "");
 
@@ -259,8 +258,8 @@ namespace BibTex2SQL
                     foreach (string a in authors)
                     {
                         string vorname, nachname;
-                        vorname = a.Substring(a.IndexOf(',') +1);
-                        nachname = a.Substring(0, a.IndexOf(',')+1);
+                        vorname = a.Substring(a.IndexOf(',') + 1);
+                        nachname = a.Substring(0, a.IndexOf(',') + 1);
 
                         vorname = Regex.Replace(vorname, @"(\w)\w+[^.]", @"$1.");
                         newAuthors.Add(nachname + "" + vorname);
@@ -273,7 +272,6 @@ namespace BibTex2SQL
 
             }
 
-            //EntryList.Add(curEntry);
             return true;
         }
 
