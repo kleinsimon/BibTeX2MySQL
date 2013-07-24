@@ -128,7 +128,14 @@ namespace BibTex2SQL
                     if (0 == open)
                     {
                         entry = false;
-                        valid = parseEntry(buffer + curChar);
+                        try
+                        {
+                            valid = parseEntry(buffer + curChar);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Fehler im Tag:\r\n" + buffer + curChar);
+                        }
                         buffer = "";
                     }
                 }
@@ -148,6 +155,9 @@ namespace BibTex2SQL
         {
             if (!entry.StartsWith("@"))
                 return false;
+
+            if (!entry.Contains(@"Lehrstuhl-Veröffentlichungen"))
+                return true;
 
             DataRow curEntry = EntryTable.NewRow();
             char lastChar = '.';
