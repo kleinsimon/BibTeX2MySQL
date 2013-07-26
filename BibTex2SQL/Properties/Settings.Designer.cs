@@ -94,5 +94,65 @@ namespace BibTex2SQL.Properties {
                 this["table"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SSHtunnel {
+            get {
+                return ((bool)(this["SSHtunnel"]));
+            }
+            set {
+                this["SSHtunnel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SSHPort {
+            get {
+                return ((string)(this["SSHPort"]));
+            }
+            set {
+                this["SSHPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SSHUser {
+            get {
+                return ((string)(this["SSHUser"]));
+            }
+            set {
+                this["SSHUser"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SSHPass {
+            get {
+                return ((string)(this["SSHPass"]));
+            }
+            set {
+                this["SSHPass"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string plinkPath {
+            get {
+                return ((string)(this["plinkPath"]));
+            }
+            set {
+                this["plinkPath"] = value;
+            }
+        }
     }
 }

@@ -41,6 +41,20 @@
             this.buttonSave = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxTable = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxSSHPass = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxSSHUser = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxSSHLocalPort = new System.Windows.Forms.TextBox();
+            this.checkBoxSSH = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.checkBoxPlink = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.buttonTest = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -64,7 +78,7 @@
             this.textBoxPort.Location = new System.Drawing.Point(90, 38);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPort.TabIndex = 3;
+            this.textBoxPort.TabIndex = 2;
             // 
             // label2
             // 
@@ -96,7 +110,7 @@
             this.textBoxUser.Location = new System.Drawing.Point(90, 64);
             this.textBoxUser.Name = "textBoxUser";
             this.textBoxUser.Size = new System.Drawing.Size(100, 20);
-            this.textBoxUser.TabIndex = 7;
+            this.textBoxUser.TabIndex = 3;
             // 
             // label4
             // 
@@ -111,8 +125,9 @@
             // 
             this.textBoxPassw.Location = new System.Drawing.Point(90, 90);
             this.textBoxPassw.Name = "textBoxPassw";
+            this.textBoxPassw.PasswordChar = '*';
             this.textBoxPassw.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPassw.TabIndex = 9;
+            this.textBoxPassw.TabIndex = 4;
             // 
             // label5
             // 
@@ -125,7 +140,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(159, 132);
+            this.buttonSave.Location = new System.Drawing.Point(113, 190);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 10;
@@ -147,13 +162,139 @@
             this.textBoxTable.Location = new System.Drawing.Point(257, 38);
             this.textBoxTable.Name = "textBoxTable";
             this.textBoxTable.Size = new System.Drawing.Size(100, 20);
-            this.textBoxTable.TabIndex = 11;
+            this.textBoxTable.TabIndex = 6;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.checkBoxPlink);
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.textBoxSSHPass);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.textBoxSSHUser);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.textBoxSSHLocalPort);
+            this.groupBox1.Controls.Add(this.checkBoxSSH);
+            this.groupBox1.Location = new System.Drawing.Point(194, 67);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(173, 149);
+            this.groupBox1.TabIndex = 13;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "SSH-Tunnel";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 102);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(55, 13);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "SSH Pass";
+            // 
+            // textBoxSSHPass
+            // 
+            this.textBoxSSHPass.Location = new System.Drawing.Point(67, 99);
+            this.textBoxSSHPass.Name = "textBoxSSHPass";
+            this.textBoxSSHPass.PasswordChar = '*';
+            this.textBoxSSHPass.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSSHPass.TabIndex = 10;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 76);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(54, 13);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "SSH User";
+            // 
+            // textBoxSSHUser
+            // 
+            this.textBoxSSHUser.Location = new System.Drawing.Point(67, 73);
+            this.textBoxSSHUser.Name = "textBoxSSHUser";
+            this.textBoxSSHUser.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSSHUser.TabIndex = 9;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 50);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(55, 13);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Local Port";
+            // 
+            // textBoxSSHLocalPort
+            // 
+            this.textBoxSSHLocalPort.Location = new System.Drawing.Point(66, 47);
+            this.textBoxSSHLocalPort.Name = "textBoxSSHLocalPort";
+            this.textBoxSSHLocalPort.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSSHLocalPort.TabIndex = 8;
+            // 
+            // checkBoxSSH
+            // 
+            this.checkBoxSSH.AutoSize = true;
+            this.checkBoxSSH.Location = new System.Drawing.Point(7, 19);
+            this.checkBoxSSH.Name = "checkBoxSSH";
+            this.checkBoxSSH.Size = new System.Drawing.Size(120, 17);
+            this.checkBoxSSH.TabIndex = 7;
+            this.checkBoxSSH.Text = "Enable SSH-Tunnel";
+            this.checkBoxSSH.UseVisualStyleBackColor = true;
+            this.checkBoxSSH.Click += new System.EventHandler(this.checkBox1_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 128);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "plink.exe";
+            // 
+            // checkBoxPlink
+            // 
+            this.checkBoxPlink.AutoCheck = false;
+            this.checkBoxPlink.AutoSize = true;
+            this.checkBoxPlink.Location = new System.Drawing.Point(66, 125);
+            this.checkBoxPlink.Name = "checkBoxPlink";
+            this.checkBoxPlink.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxPlink.TabIndex = 17;
+            this.checkBoxPlink.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(91, 120);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Browse";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // buttonTest
+            // 
+            this.buttonTest.Location = new System.Drawing.Point(14, 190);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(93, 23);
+            this.buttonTest.TabIndex = 14;
+            this.buttonTest.Text = "Test Connection";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
             // settings
             // 
+            this.AcceptButton = this.buttonSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 166);
+            this.ClientSize = new System.Drawing.Size(379, 228);
+            this.Controls.Add(this.buttonTest);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxTable);
             this.Controls.Add(this.buttonSave);
@@ -169,6 +310,8 @@
             this.Controls.Add(this.label1);
             this.Name = "settings";
             this.Text = "settings";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,5 +332,18 @@
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxTable;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxSSHPass;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxSSHUser;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxSSHLocalPort;
+        private System.Windows.Forms.CheckBox checkBoxSSH;
+        private System.Windows.Forms.CheckBox checkBoxPlink;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button buttonTest;
     }
 }

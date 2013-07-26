@@ -67,6 +67,7 @@ namespace BibTex2SQL
             "signature",
             "keywords",
             "doi",
+            "isbn",
         };
 
         public MainForm()
@@ -306,13 +307,51 @@ namespace BibTex2SQL
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            sqlconn.Server = Properties.Settings.Default.server;
-            sqlconn.Port = Properties.Settings.Default.port;
+            updateTable();
+        }
+
+        public void updateTable(bool noChange=false)
+        {
+            Process plink = null;
+
+            if (Properties.Settings.Default.SSHtunnel)
+            {
+                try
+                {
+                    sqlconn.Server = @"127.0.0.1";
+                    sqlconn.Port = uint.Parse(Properties.Settings.Default.SSHPort);
+
+                    ProcessStartInfo psi = new ProcessStartInfo(Properties.Settings.Default.plinkPath);
+
+                    psi.Arguments = "-ssh -l " + Properties.Settings.Default.SSHUser + " -L " + Properties.Settings.Default.port + ":127.0.0.1:" +
+                                    Properties.Settings.Default.SSHPort + " -pw " + Properties.Settings.Default.SSHPass + " " + Properties.Settings.Default.server;
+
+
+                    psi.RedirectStandardInput = true;
+                    psi.RedirectStandardOutput = true;
+                    psi.WindowStyle = ProcessWindowStyle.Hidden;
+                    psi.UseShellExecute = false;
+                    psi.CreateNoWindow = true;
+
+                    plink = Process.Start(psi);
+                }
+                catch
+                {
+                    MessageBox.Show("SSH-Tunnel konnte nicht aufgebaut werden");
+                    return;
+                }
+            }
+            else
+            {
+                sqlconn.Server = Properties.Settings.Default.server;
+                sqlconn.Port = Properties.Settings.Default.port;
+            }
+
             sqlconn.UserID = Properties.Settings.Default.user;
             sqlconn.Password = Properties.Settings.Default.password;
             sqlconn.Database = Properties.Settings.Default.database;
-            string table = Properties.Settings.Default.table;
 
+            string table = Properties.Settings.Default.table;
             EntryTable.TableName = table;
 
             using (MySqlConnection connection = new MySqlConnection(sqlconn.ConnectionString))
@@ -320,15 +359,22 @@ namespace BibTex2SQL
                 try
                 {
                     connection.Open();
+                    if (!connection.Ping())
+                    {
+                        throw new Exception("No Connection to Server");
+                    }
 
-                    MySqlCommand del = new MySqlCommand(@"TRUNCATE TABLE " + sqlconn.Database + "." + table, connection);
-                    del.ExecuteNonQuery();
+                    if (!noChange)
+                    {
+                        MySqlCommand del = new MySqlCommand(@"TRUNCATE TABLE " + sqlconn.Database + "." + table, connection);
+                        del.ExecuteNonQuery();
 
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(@"SELECT * FROM " + sqlconn.Database + "." + table, connection);
-                    MySqlCommandBuilder builder = new MySqlCommandBuilder(adapter);
-                    adapter.ContinueUpdateOnError = true;
+                        MySqlDataAdapter adapter = new MySqlDataAdapter(@"SELECT * FROM " + sqlconn.Database + "." + table, connection);
+                        MySqlCommandBuilder builder = new MySqlCommandBuilder(adapter);
+                        adapter.ContinueUpdateOnError = true;
 
-                    adapter.Update(EntryTable);
+                        adapter.Update(EntryTable);
+                    }
                     MessageBox.Show("Successful");
                 }
                 catch (Exception ex)
@@ -337,12 +383,20 @@ namespace BibTex2SQL
                 }
             }
 
-
+            try
+            {
+                plink.StandardInput.WriteLine("exit");
+                plink.CloseMainWindow();
+                plink.Close();
+                plink.Dispose();
+                plink.Kill();
+            }
+            catch { }
         }
 
         private void buttonSettings_Click(object sender, EventArgs e)
         {
-            settings setWin = new settings();
+            settings setWin = new settings(this);
             setWin.Show();
         }
     }
