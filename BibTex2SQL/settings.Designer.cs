@@ -42,6 +42,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxTable = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.checkBoxPlink = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxSSHPass = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -49,9 +52,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxSSHLocalPort = new System.Windows.Forms.TextBox();
             this.checkBoxSSH = new System.Windows.Forms.CheckBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.checkBoxPlink = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.buttonTest = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -125,7 +125,6 @@
             // 
             this.textBoxPassw.Location = new System.Drawing.Point(90, 90);
             this.textBoxPassw.Name = "textBoxPassw";
-            this.textBoxPassw.PasswordChar = '*';
             this.textBoxPassw.Size = new System.Drawing.Size(100, 20);
             this.textBoxPassw.TabIndex = 4;
             // 
@@ -183,6 +182,35 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "SSH-Tunnel";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(91, 120);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Browse";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // checkBoxPlink
+            // 
+            this.checkBoxPlink.AutoCheck = false;
+            this.checkBoxPlink.AutoSize = true;
+            this.checkBoxPlink.Location = new System.Drawing.Point(66, 125);
+            this.checkBoxPlink.Name = "checkBoxPlink";
+            this.checkBoxPlink.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxPlink.TabIndex = 17;
+            this.checkBoxPlink.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(8, 128);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 16;
+            this.label10.Text = "plink.exe";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -196,7 +224,6 @@
             // 
             this.textBoxSSHPass.Location = new System.Drawing.Point(67, 99);
             this.textBoxSSHPass.Name = "textBoxSSHPass";
-            this.textBoxSSHPass.PasswordChar = '*';
             this.textBoxSSHPass.Size = new System.Drawing.Size(100, 20);
             this.textBoxSSHPass.TabIndex = 10;
             // 
@@ -242,35 +269,6 @@
             this.checkBoxSSH.Text = "Enable SSH-Tunnel";
             this.checkBoxSSH.UseVisualStyleBackColor = true;
             this.checkBoxSSH.Click += new System.EventHandler(this.checkBox1_Click);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(8, 128);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(49, 13);
-            this.label10.TabIndex = 16;
-            this.label10.Text = "plink.exe";
-            // 
-            // checkBoxPlink
-            // 
-            this.checkBoxPlink.AutoCheck = false;
-            this.checkBoxPlink.AutoSize = true;
-            this.checkBoxPlink.Location = new System.Drawing.Point(66, 125);
-            this.checkBoxPlink.Name = "checkBoxPlink";
-            this.checkBoxPlink.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxPlink.TabIndex = 17;
-            this.checkBoxPlink.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(91, 120);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Browse";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // openFileDialog1
             // 

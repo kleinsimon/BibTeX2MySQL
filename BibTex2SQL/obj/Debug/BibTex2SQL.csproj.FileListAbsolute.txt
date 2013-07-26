@@ -37,3 +37,7 @@ C:\Users\sk\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.exe.manifest
 C:\Users\sk\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.application
 C:\Users\sk\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.exe.manifest
 C:\Users\sk\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.application
+C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.exe.manifest
+C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.application
+C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.exe.manifest
+C:\Users\Simon\SkyDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.application

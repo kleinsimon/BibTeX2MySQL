@@ -318,12 +318,12 @@ namespace BibTex2SQL
             {
                 try
                 {
-                    sqlconn.Server = @"127.0.0.1";
+                    sqlconn.Server = @"localhost";
                     sqlconn.Port = uint.Parse(Properties.Settings.Default.SSHPort);
 
                     ProcessStartInfo psi = new ProcessStartInfo(Properties.Settings.Default.plinkPath);
 
-                    psi.Arguments = "-ssh -l " + Properties.Settings.Default.SSHUser + " -L " + Properties.Settings.Default.port + ":127.0.0.1:" +
+                    psi.Arguments = "-ssh -l " + Properties.Settings.Default.SSHUser + " -L " + Properties.Settings.Default.port + ":localhost:" +
                                     Properties.Settings.Default.SSHPort + " -pw " + Properties.Settings.Default.SSHPass + " " + Properties.Settings.Default.server;
 
 
@@ -379,17 +379,18 @@ namespace BibTex2SQL
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message.ToString());
+                    string tmp = "";
+                    if (plink != null)
+                        tmp = plink.StandardOutput.ReadToEnd();
+                    MessageBox.Show(ex.Message.ToString() + tmp);
                 }
             }
 
             try
             {
                 plink.StandardInput.WriteLine("exit");
-                plink.CloseMainWindow();
-                plink.Close();
-                plink.Dispose();
                 plink.Kill();
+                plink.Dispose();
             }
             catch { }
         }

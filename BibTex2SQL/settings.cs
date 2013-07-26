@@ -55,6 +55,11 @@ namespace BibTex2SQL
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            SaveSettings();
+        }
+
+        private void SaveSettings()
+        {
             Properties.Settings.Default.server = textBoxServer.Text;
             uint tmp;
             if (uint.TryParse(textBoxPort.Text, out tmp))
@@ -69,8 +74,6 @@ namespace BibTex2SQL
             Properties.Settings.Default.SSHUser = textBoxSSHUser.Text;
 
             Properties.Settings.Default.Save();
-
-            this.Dispose();
         }
 
         private void checkBox1_Click(object sender, EventArgs e)
@@ -97,6 +100,7 @@ namespace BibTex2SQL
 
         private void buttonTest_Click(object sender, EventArgs e)
         {
+            SaveSettings();
             parentForm.updateTable(true);
         }
     }
