@@ -150,6 +150,8 @@ namespace BibTex2SQL
 
             dataGridView1.DataSource = EntryTable;
             RF.Close();
+
+            label1.Text = EntryTable.Rows.Count.ToString() + " Entries read";
         }
 
         bool parseEntry(string entry)
@@ -213,12 +215,12 @@ namespace BibTex2SQL
                             }
                             if (tagName == "location")
                             {
-                                if (tagBody.Contains(@"Lehrstuhl-Veröffentlichungen"))
+                                if (tagBody.Contains(Properties.Settings.Default.locationFilter))
                                 {
                                     ownPub = true;
                                     try
                                     {
-                                        int first = tagBody.IndexOf(@"Lehrstuhl-Veröffentlichungen") + 30;
+                                        int first = tagBody.IndexOf(Properties.Settings.Default.locationFilter) + Properties.Settings.Default.locationFilter.Length + 2;
                                         ownPubID = tagBody.Substring(first, tagBody.IndexOf(')') - first);
                                     }
                                     catch { }
@@ -389,10 +391,13 @@ namespace BibTex2SQL
             try
             {
                 plink.StandardInput.WriteLine("exit");
+
                 plink.Kill();
                 plink.Dispose();
             }
             catch { }
+
+            EntryTable.Clear();
         }
 
         private void buttonSettings_Click(object sender, EventArgs e)

@@ -154,5 +154,17 @@ namespace BibTex2SQL.Properties {
                 this["plinkPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string locationFilter {
+            get {
+                return ((string)(this["locationFilter"]));
+            }
+            set {
+                this["locationFilter"] = value;
+            }
+        }
     }
 }

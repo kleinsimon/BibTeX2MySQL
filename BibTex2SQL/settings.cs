@@ -45,6 +45,7 @@ namespace BibTex2SQL
             textBoxSSHLocalPort.Text = Properties.Settings.Default.SSHPort;
             textBoxSSHPass.Text = Properties.Settings.Default.SSHPass;
             textBoxSSHUser.Text = Properties.Settings.Default.SSHUser;
+            textBoxLocation.Text = Properties.Settings.Default.locationFilter;
 
             if (File.Exists(Properties.Settings.Default.plinkPath))
             {
@@ -72,6 +73,7 @@ namespace BibTex2SQL
             Properties.Settings.Default.SSHPort = textBoxSSHLocalPort.Text;
             Properties.Settings.Default.SSHPass = textBoxSSHPass.Text;
             Properties.Settings.Default.SSHUser = textBoxSSHUser.Text;
+            Properties.Settings.Default.locationFilter = textBoxLocation.Text;
 
             Properties.Settings.Default.Save();
         }

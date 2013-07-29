@@ -54,6 +54,8 @@
             this.checkBoxSSH = new System.Windows.Forms.CheckBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.buttonTest = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxLocation = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,7 +93,7 @@
             // 
             // textBoxDB
             // 
-            this.textBoxDB.Location = new System.Drawing.Point(257, 12);
+            this.textBoxDB.Location = new System.Drawing.Point(90, 84);
             this.textBoxDB.Name = "textBoxDB";
             this.textBoxDB.Size = new System.Drawing.Size(100, 20);
             this.textBoxDB.TabIndex = 5;
@@ -99,7 +101,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(55, 67);
+            this.label3.Location = new System.Drawing.Point(225, 15);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 4;
@@ -107,7 +109,7 @@
             // 
             // textBoxUser
             // 
-            this.textBoxUser.Location = new System.Drawing.Point(90, 64);
+            this.textBoxUser.Location = new System.Drawing.Point(260, 12);
             this.textBoxUser.Name = "textBoxUser";
             this.textBoxUser.Size = new System.Drawing.Size(100, 20);
             this.textBoxUser.TabIndex = 3;
@@ -115,7 +117,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 93);
+            this.label4.Location = new System.Drawing.Point(201, 41);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 6;
@@ -123,7 +125,7 @@
             // 
             // textBoxPassw
             // 
-            this.textBoxPassw.Location = new System.Drawing.Point(90, 90);
+            this.textBoxPassw.Location = new System.Drawing.Point(260, 38);
             this.textBoxPassw.Name = "textBoxPassw";
             this.textBoxPassw.Size = new System.Drawing.Size(100, 20);
             this.textBoxPassw.TabIndex = 4;
@@ -131,7 +133,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(198, 15);
+            this.label5.Location = new System.Drawing.Point(31, 87);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 13);
             this.label5.TabIndex = 8;
@@ -150,7 +152,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(217, 41);
+            this.label6.Location = new System.Drawing.Point(50, 113);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 13);
             this.label6.TabIndex = 12;
@@ -158,7 +160,7 @@
             // 
             // textBoxTable
             // 
-            this.textBoxTable.Location = new System.Drawing.Point(257, 38);
+            this.textBoxTable.Location = new System.Drawing.Point(90, 110);
             this.textBoxTable.Name = "textBoxTable";
             this.textBoxTable.Size = new System.Drawing.Size(100, 20);
             this.textBoxTable.TabIndex = 6;
@@ -285,12 +287,30 @@
             this.buttonTest.UseVisualStyleBackColor = true;
             this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(11, 139);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(73, 13);
+            this.label11.TabIndex = 16;
+            this.label11.Text = "Location Filter";
+            // 
+            // textBoxLocation
+            // 
+            this.textBoxLocation.Location = new System.Drawing.Point(90, 136);
+            this.textBoxLocation.Name = "textBoxLocation";
+            this.textBoxLocation.Size = new System.Drawing.Size(100, 20);
+            this.textBoxLocation.TabIndex = 15;
+            // 
             // settings
             // 
             this.AcceptButton = this.buttonSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(379, 228);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.textBoxLocation);
             this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label6);
@@ -343,5 +363,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button buttonTest;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxLocation;
     }
 }
