@@ -207,6 +207,7 @@ namespace BibTex2SQL
                             tagBody = tagBody.Replace("{", "");
                             tagBody = tagBody.Replace("}", "");
                             tagBody = tagBody.Trim();
+                            tagBody = Regex.Unescape(tagBody);
 
                             if (tags.Contains(tagName))
                             {
