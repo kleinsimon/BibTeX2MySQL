@@ -46,6 +46,9 @@
             <setting name="locationFilter" serializeAs="String">
                 <value />
             </setting>
+            <setting name="doAppend" serializeAs="String">
+                <value>False</value>
+            </setting>
         </BibTex2SQL.Properties.Settings>
     </userSettings>
 </configuration>

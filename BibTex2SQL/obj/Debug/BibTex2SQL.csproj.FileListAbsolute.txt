@@ -56,3 +56,17 @@ D:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.settings.resources
 D:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.csproj.GenerateResource.Cache
 D:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.exe.manifest
 D:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.application
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.exe.config
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.exe.manifest
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.application
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.exe
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\bin\Debug\BibTex2SQL.pdb
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.csprojResolveAssemblyReference.cache
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.MainForm.resources
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.Properties.Resources.resources
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.settings.resources
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.csproj.GenerateResource.Cache
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.exe.manifest
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.application
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.exe
+F:\HiDrive\Dev\BibTex2SQL\BibTex2SQL\obj\Debug\BibTex2SQL.pdb

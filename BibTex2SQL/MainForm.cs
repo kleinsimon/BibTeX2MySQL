@@ -74,7 +74,6 @@ namespace BibTex2SQL
         {
             InitializeComponent();
 
-
             foreach (string tag in tags)
             {
                 EntryTable.Columns.Add(tag);
@@ -133,9 +132,9 @@ namespace BibTex2SQL
                         {
                             valid = parseEntry(buffer + curChar);
                         }
-                        catch
+                        catch (Exception ex)
                         {
-                            MessageBox.Show("Fehler im Tag:\r\n" + buffer + curChar);
+                            MessageBox.Show("Exception: " + ex.Message + "\r\n Fehler im Tag:\r\n" + buffer + curChar);
                         }
                         buffer = "";
                     }
@@ -189,7 +188,7 @@ namespace BibTex2SQL
                     open--;
                 }
 
-                if (open == 0 && n==0)
+                if (open == 0 && n == 0)
                 {
                     //before body
                     bibType += c;
@@ -221,14 +220,18 @@ namespace BibTex2SQL
                                     ownPub = true;
                                     try
                                     {
+
                                         int first = tagBody.IndexOf(Properties.Settings.Default.locationFilter) + Properties.Settings.Default.locationFilter.Length + 2;
-                                        ownPubID = tagBody.Substring(first, tagBody.IndexOf(')') - first);
+                                        ownPubID = tagBody.Substring(first, tagBody.IndexOf(')', first) - first);
                                     }
-                                    catch { }
+                                    catch (Exception ex)
+                                    {
+                                        //MessageBox.Show(ex.Message);
+                                    }
                                     curEntry["signature"] = ownPubID;
                                 }
                             }
-                            lastTag="";
+                            lastTag = "";
                         }
 
                         i++;
@@ -261,6 +264,11 @@ namespace BibTex2SQL
 
                 curEntry["BibType"] = bibType;
                 curEntry["BibKey"] = bibKey;
+
+                if (curEntry["author"].GetType() == typeof(System.DBNull))
+                {
+                    MessageBox.Show("Einträge ohne Author werden nicht unterstützt");
+                }
 
                 curEntry["author"] = ((string)curEntry["author"]).Replace(@"{", "");
                 curEntry["author"] = ((string)curEntry["author"]).Replace(@"}", "");
@@ -313,7 +321,7 @@ namespace BibTex2SQL
             updateTable();
         }
 
-        public void updateTable(bool noChange=false)
+        public void updateTable(bool noChange = false)
         {
             Process plink = null;
 
@@ -321,7 +329,7 @@ namespace BibTex2SQL
             {
                 try
                 {
-                    sqlconn.Server = @"localhost";
+                    sqlconn.Server = @"127.0.0.1";
                     sqlconn.Port = uint.Parse(Properties.Settings.Default.SSHPort);
 
                     ProcessStartInfo psi = new ProcessStartInfo(Properties.Settings.Default.plinkPath);
@@ -335,7 +343,7 @@ namespace BibTex2SQL
                     psi.WindowStyle = ProcessWindowStyle.Hidden;
                     psi.UseShellExecute = false;
                     psi.CreateNoWindow = true;
-
+                    
                     plink = Process.Start(psi);
                 }
                 catch
@@ -349,7 +357,7 @@ namespace BibTex2SQL
                 sqlconn.Server = Properties.Settings.Default.server;
                 sqlconn.Port = Properties.Settings.Default.port;
             }
-
+            
             sqlconn.UserID = Properties.Settings.Default.user;
             sqlconn.Password = Properties.Settings.Default.password;
             sqlconn.Database = Properties.Settings.Default.database;
@@ -364,7 +372,7 @@ namespace BibTex2SQL
                     connection.Open();
                     if (!connection.Ping())
                     {
-                        throw new Exception("No Connection to Server");
+                        throw new Exception("No Connection to Server. \r\n Connection: " + sqlconn.ConnectionString);
                     }
 
                     if (!noChange)
@@ -382,10 +390,11 @@ namespace BibTex2SQL
                 }
                 catch (Exception ex)
                 {
-                    string tmp = "";
-                    if (plink != null)
-                        tmp = plink.StandardOutput.ReadToEnd();
-                    MessageBox.Show(ex.Message.ToString() + tmp);
+                    MessageBox.Show(ex.Message.ToString());
+                    //string tmp = "";
+                    //if (plink != null)
+                    //    tmp = plink.StandardOutput.ReadToEnd();
+                    //MessageBox.Show(ex.Message.ToString() + tmp);
                 }
             }
 
@@ -398,7 +407,8 @@ namespace BibTex2SQL
             }
             catch { }
 
-            EntryTable.Clear();
+            if (!noChange)
+                EntryTable.Clear();
         }
 
         private void buttonSettings_Click(object sender, EventArgs e)
@@ -406,6 +416,12 @@ namespace BibTex2SQL
             settings setWin = new settings(this);
             setWin.Show();
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
+
     }
 
 }
