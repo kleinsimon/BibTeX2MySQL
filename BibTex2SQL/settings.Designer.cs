@@ -56,7 +56,14 @@
             this.buttonTest = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxLocation = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonBrowseFile = new System.Windows.Forms.Button();
+            this.textBoxWatchFile = new System.Windows.Forms.TextBox();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.checkBoxDelete = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -141,7 +148,7 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(113, 190);
+            this.buttonSave.Location = new System.Drawing.Point(147, 304);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 10;
@@ -279,7 +286,7 @@
             // 
             // buttonTest
             // 
-            this.buttonTest.Location = new System.Drawing.Point(14, 190);
+            this.buttonTest.Location = new System.Drawing.Point(53, 183);
             this.buttonTest.Name = "buttonTest";
             this.buttonTest.Size = new System.Drawing.Size(93, 23);
             this.buttonTest.TabIndex = 14;
@@ -303,12 +310,68 @@
             this.textBoxLocation.Size = new System.Drawing.Size(100, 20);
             this.textBoxLocation.TabIndex = 15;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.checkBoxDelete);
+            this.groupBox2.Controls.Add(this.buttonClear);
+            this.groupBox2.Controls.Add(this.buttonBrowseFile);
+            this.groupBox2.Controls.Add(this.textBoxWatchFile);
+            this.groupBox2.Location = new System.Drawing.Point(12, 222);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(355, 76);
+            this.groupBox2.TabIndex = 17;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Data File for Automatic Mode";
+            // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(103, 45);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonClear.TabIndex = 20;
+            this.buttonClear.Text = "Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            // 
+            // buttonBrowseFile
+            // 
+            this.buttonBrowseFile.Location = new System.Drawing.Point(22, 45);
+            this.buttonBrowseFile.Name = "buttonBrowseFile";
+            this.buttonBrowseFile.Size = new System.Drawing.Size(75, 23);
+            this.buttonBrowseFile.TabIndex = 19;
+            this.buttonBrowseFile.Text = "Browse";
+            this.buttonBrowseFile.UseVisualStyleBackColor = true;
+            this.buttonBrowseFile.Click += new System.EventHandler(this.buttonBrowseFile_Click);
+            // 
+            // textBoxWatchFile
+            // 
+            this.textBoxWatchFile.Location = new System.Drawing.Point(6, 19);
+            this.textBoxWatchFile.Name = "textBoxWatchFile";
+            this.textBoxWatchFile.ReadOnly = true;
+            this.textBoxWatchFile.Size = new System.Drawing.Size(343, 20);
+            this.textBoxWatchFile.TabIndex = 18;
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.FileName = "openFileDialog2";
+            this.openFileDialog2.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog2_FileOk);
+            // 
+            // checkBoxDelete
+            // 
+            this.checkBoxDelete.AutoSize = true;
+            this.checkBoxDelete.Location = new System.Drawing.Point(216, 49);
+            this.checkBoxDelete.Name = "checkBoxDelete";
+            this.checkBoxDelete.Size = new System.Drawing.Size(114, 17);
+            this.checkBoxDelete.TabIndex = 21;
+            this.checkBoxDelete.Text = "Delete after Export";
+            this.checkBoxDelete.UseVisualStyleBackColor = true;
+            // 
             // settings
             // 
             this.AcceptButton = this.buttonSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 228);
+            this.ClientSize = new System.Drawing.Size(379, 336);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.textBoxLocation);
             this.Controls.Add(this.buttonTest);
@@ -330,6 +393,8 @@
             this.Text = "settings";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -365,5 +430,11 @@
         private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBoxLocation;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button buttonClear;
+        private System.Windows.Forms.Button buttonBrowseFile;
+        private System.Windows.Forms.TextBox textBoxWatchFile;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.CheckBox checkBoxDelete;
     }
 }

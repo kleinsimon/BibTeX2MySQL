@@ -17,7 +17,7 @@ namespace BibTex2SQL
     public partial class MainForm : Form
     {
         DataTable EntryTable = new DataTable();
-
+        bool AutoMode = false;
         MySqlConnectionStringBuilder sqlconn = new MySqlConnectionStringBuilder();
 
 
@@ -72,12 +72,44 @@ namespace BibTex2SQL
 
         public MainForm()
         {
+            if (Environment.GetCommandLineArgs().Contains("-auto"))
+            {
+                AutoMode = true;
+            }
             InitializeComponent();
+            if (AutoMode)
+            {
+                this.Hide();
+                this.SuspendLayout();
+            }
 
             foreach (string tag in tags)
             {
                 EntryTable.Columns.Add(tag);
             }
+
+            if (AutoMode)
+            {
+                if (File.Exists(Properties.Settings.Default.watchFilePath))
+                {
+                    if (parseFile(Properties.Settings.Default.watchFilePath))
+                    {
+                        updateTable();
+                        if (Properties.Settings.Default.deleteFileAfterExport)
+                        {
+                            File.Delete(Properties.Settings.Default.watchFilePath);
+                        }
+                    }
+                }
+                this.exit();
+            }
+        }
+
+        private void exit()
+        {
+            this.Dispose();
+            this.Close();
+            Environment.Exit(0);
         }
 
         private void Form1_DragDrop(object sender, DragEventArgs e)
@@ -97,7 +129,7 @@ namespace BibTex2SQL
                 e.Effect = DragDropEffects.Move;
         }
 
-        void parseFile(string path)
+        bool parseFile(string path)
         {
             StreamReader RF = new StreamReader(path);
             string buffer = "";
@@ -134,7 +166,8 @@ namespace BibTex2SQL
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Exception: " + ex.Message + "\r\n Fehler im Tag:\r\n" + buffer + curChar);
+                            debugOutput("Exception: " + ex.Message + "\r\n Fehler im Tag:\r\n" + buffer + curChar);
+                            return false;
                         }
                         buffer = "";
                     }
@@ -145,12 +178,23 @@ namespace BibTex2SQL
                 }
                 lastchar = curChar;
             }
-            if (!valid) MessageBox.Show("Fehler Aufgetreten");
+            if (!valid)
+            {
+                debugOutput("Fehler Aufgetreten");
+                return false;
+            }
 
             dataGridView1.DataSource = EntryTable;
             RF.Close();
 
             label1.Text = EntryTable.Rows.Count.ToString() + " Entries read";
+            return true;
+        }
+
+        void debugOutput(string Msg, int level = 0)
+        {
+            if (!AutoMode) MessageBox.Show(Msg);
+            else if (level == 0) EventLog.WriteEntry("BibTex2SQL", Msg);
         }
 
         bool parseEntry(string entry)
@@ -226,7 +270,7 @@ namespace BibTex2SQL
                                     }
                                     catch (Exception ex)
                                     {
-                                        //MessageBox.Show(ex.Message);
+                                        //debugOutput(ex.Message);
                                     }
                                     curEntry["signature"] = ownPubID;
                                 }
@@ -267,7 +311,7 @@ namespace BibTex2SQL
 
                 if (curEntry["author"].GetType() == typeof(System.DBNull))
                 {
-                    MessageBox.Show("Einträge ohne Author werden nicht unterstützt");
+                    debugOutput("Einträge ohne Author werden nicht unterstützt");
                 }
 
                 curEntry["author"] = ((string)curEntry["author"]).Replace(@"{", "");
@@ -343,12 +387,12 @@ namespace BibTex2SQL
                     psi.WindowStyle = ProcessWindowStyle.Hidden;
                     psi.UseShellExecute = false;
                     psi.CreateNoWindow = true;
-                    
+
                     plink = Process.Start(psi);
                 }
                 catch
                 {
-                    MessageBox.Show("SSH-Tunnel konnte nicht aufgebaut werden");
+                    debugOutput("SSH-Tunnel konnte nicht aufgebaut werden");
                     return;
                 }
             }
@@ -357,7 +401,7 @@ namespace BibTex2SQL
                 sqlconn.Server = Properties.Settings.Default.server;
                 sqlconn.Port = Properties.Settings.Default.port;
             }
-            
+
             sqlconn.UserID = Properties.Settings.Default.user;
             sqlconn.Password = Properties.Settings.Default.password;
             sqlconn.Database = Properties.Settings.Default.database;
@@ -386,15 +430,15 @@ namespace BibTex2SQL
 
                         adapter.Update(EntryTable);
                     }
-                    MessageBox.Show("Successful");
+                    debugOutput("Successful", 1);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message.ToString());
+                    debugOutput(ex.Message.ToString());
                     //string tmp = "";
                     //if (plink != null)
                     //    tmp = plink.StandardOutput.ReadToEnd();
-                    //MessageBox.Show(ex.Message.ToString() + tmp);
+                    //debugOutput(ex.Message.ToString() + tmp);
                 }
             }
 

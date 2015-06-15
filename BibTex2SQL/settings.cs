@@ -46,6 +46,8 @@ namespace BibTex2SQL
             textBoxSSHPass.Text = Properties.Settings.Default.SSHPass;
             textBoxSSHUser.Text = Properties.Settings.Default.SSHUser;
             textBoxLocation.Text = Properties.Settings.Default.locationFilter;
+            textBoxWatchFile.Text = Properties.Settings.Default.watchFilePath;
+            checkBoxDelete.Checked = Properties.Settings.Default.deleteFileAfterExport;
 
             if (File.Exists(Properties.Settings.Default.plinkPath))
             {
@@ -57,6 +59,7 @@ namespace BibTex2SQL
         private void buttonSave_Click(object sender, EventArgs e)
         {
             SaveSettings();
+            this.Close();
         }
 
         private void SaveSettings()
@@ -74,6 +77,8 @@ namespace BibTex2SQL
             Properties.Settings.Default.SSHPass = textBoxSSHPass.Text;
             Properties.Settings.Default.SSHUser = textBoxSSHUser.Text;
             Properties.Settings.Default.locationFilter = textBoxLocation.Text;
+            Properties.Settings.Default.watchFilePath = textBoxWatchFile.Text;
+            Properties.Settings.Default.deleteFileAfterExport = checkBoxDelete.Checked;
 
             Properties.Settings.Default.Save();
         }
@@ -104,6 +109,22 @@ namespace BibTex2SQL
         {
             SaveSettings();
             parentForm.updateTable(true);
+        }
+
+        private void buttonBrowseFile_Click(object sender, EventArgs e)
+        {
+            openFileDialog2.FileName = textBoxWatchFile.Text;
+            openFileDialog2.Filter = @"BibTeX File (*.bib)|*.bib|All files (*.*)|*.*";
+            openFileDialog2.ShowDialog();
+        }
+
+        private void openFileDialog2_FileOk(object sender, CancelEventArgs e)
+        {
+            if (File.Exists(openFileDialog2.FileName))
+            {
+                e.Cancel = false;
+                textBoxWatchFile.Text = openFileDialog2.FileName;
+            }
         }
     }
 }
